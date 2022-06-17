@@ -1,9 +1,43 @@
-<html>
-  <head>
-    <title> Pandi </title>
-  </head>
+<!DOCTYPE html>
+<html lang="en">
 
-  <body>
-    <h1> Pandi Qlik </h1>
-  </body>
-</html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <script type="text/javascript">
+    const webIntegrationId = "64yKtHag_LdmcaaiRG2TM9qKD-5BOlCY";
+    function login() {
+      function isLoggedIn() {
+        return fetch("https://83n21dw79d3imcg.us.qlikcloud.com/api/v1/users/me", {
+          method: 'GET',
+          mode: 'cors',
+          credentials: 'include',
+          headers: {
+            'Content-Type': 'application/json',
+            'qlik-web-integration-id': webIntegrationId,
+          },
+        }).then(response => {
+          return response.status === 200;
+        });
+      }
+      return isLoggedIn().then(loggedIn => {
+        if (!loggedIn) {
+          // check login
+            window.location.href = "https://83n21dw79d3imcg.us.qlikcloud.com/login?qlik-web-integration-id=" + webIntegrationId + "&returnto=" + location.href;
+          throw new Error('not logged in');
+        }
+      });
+    }
+	login()
+  </script>
+</head>
+
+<body style="height:600px;">
+  <iframe src="https://83n21dw79d3imcg.us.qlikcloud.com/single/?appid=4973b776-e4d7-4caa-ab55-d60d7fd1b9da&obj=NvqdP&theme=breeze&opt=ctxmenu,currsel&select=$::explorar,M%C3%A9dicos&select=$::periodicidad,Mes" 
+  style="border:solid;width:100%;height:100%;">
+  </iframe>
+</body>
+
+</html>​
